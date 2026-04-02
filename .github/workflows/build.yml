@@ -49,7 +49,7 @@ jobs:
           external/**/*.elf
           external/**/*.oelf
           external/**/*.prx
-        key: ${{ runner.os }}-obj
+        key: ${{ runner.os }}-obj-v2
 
     - name: Build dependencies
       if: steps.cache-objs.outputs.cache-hit != 'true'
