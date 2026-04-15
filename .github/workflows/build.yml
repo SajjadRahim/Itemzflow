@@ -23,7 +23,7 @@ jobs:
       run: |
         mkdir ${{ env.BASE_PATH }}
         sudo apt-get install unzip
-        curl -sL https://github.com/LightningMods/OpenOrbis-PS4-Toolchain/releases/download/v0.50001/orbisdev.zip -o orbisdev.zip
+        curl -sL https://github.com/SajjadRahim/OpenOrbis-PS4-Toolchain/releases/download/v0.50001/orbisdev.zip -o orbisdev.zip
         unzip orbisdev.zip -d ${{ env.BASE_PATH }}
         sudo chmod 0777 -R ${{ env.BASE_PATH }} 
         curl -sL https://github.com/LightningMods/OpenOrbis-PS4-Toolchain/releases/download/v0.50001/OOSDK.tar.gz | tar xz -C ${{ env.BASE_PATH }}
@@ -89,7 +89,6 @@ jobs:
     - name: Build app
       working-directory: itemzflow
       run: |
-        curl -o /opt/hostedtoolcache/ps4/orbisdev/usr/include/dumper.h https://raw.githubusercontent.com/LightningMods/libdumper/main/include/dumper.h
         make clean
         make -j$(nproc)
         make oelf
