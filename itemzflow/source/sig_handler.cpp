@@ -234,11 +234,11 @@ bool Dump_w_opts(std::string tid, std::string d_p, std::string gtitle,
   options.dump_path = d_p.c_str();
   options.title = gtitle.c_str();
   options.opt = (Dump_Options)dump;
-  options.sb_copy = false;
+//  options.sb_copy = false;
 
 
   if(Confirmation_Msg(SAMPLER_MSG) == YES){
-       options.sb_copy = true;
+ //      options.sb_copy = true;
   }
 
   progstart((char *)getLangSTR(LANG_STR::STARTING_DUMPER).c_str());
