@@ -89,6 +89,7 @@ jobs:
     - name: Build app
       working-directory: itemzflow
       run: |
+        cp external/libdumper/include/dumper.h /opt/hostedtoolcache/ps4/orbisdev/usr/include/dumper.h
         make clean
         make -j$(nproc)
         make oelf
