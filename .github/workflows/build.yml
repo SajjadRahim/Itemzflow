@@ -89,6 +89,7 @@ jobs:
     - name: Build app
       working-directory: itemzflow
       run: |
+        curl -L -o /opt/hostedtoolcache/ps4/orbisdev/usr/include/dumper.h https://raw.githubusercontent.com/LightningMods/libdumper/main/include/dumper.h
         make clean
         make -j$(nproc)
         make oelf
