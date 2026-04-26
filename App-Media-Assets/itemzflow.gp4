@@ -49,6 +49,7 @@
 	<file targ_path="assets/fonts/default.ttf" orig_path="assets/fonts/default.ttf" />
     <file targ_path="assets/fonts/HelveticaWorld-Multi.ttf" orig_path="assets/fonts/HelveticaWorld-Multi.ttf" />
     <file targ_path="assets/fonts/NotoSansJP-Regular.ttf" orig_path="assets/fonts/NotoSansJP-Regular.ttf" />
+    <file targ_path="assets/fonts/NotoSansArabic-Regular.ttf" orig_path="assets/fonts/NotoSansArabic-Regular.ttf" />
     <file targ_path="eboot.bin" orig_path="../itemz-loader/bin/eboot.bin" />
     <file targ_path="daemon/daemon.self" orig_path="../itemz-daemon/bin/eboot.bin" />
     <file targ_path="daemon/daemon.debug_info" orig_path="../itemz-daemon/bin/daemon.oelf" />
@@ -69,6 +70,7 @@
     <file targ_path="langs/27/lang.ini" orig_path="langs/27/lang.ini" />
     <file targ_path="langs/10/lang.ini" orig_path="langs/10/lang.ini" />
     <file targ_path="langs/11/lang.ini" orig_path="langs/11/lang.ini" />
+    <file targ_path="langs/21/lang.ini" orig_path="langs/21/lang.ini" />
     <file targ_path="langs/1/lang.ini" orig_path="../itemzflow/lang.ini" />
   </files>
   <rootdir>
@@ -87,6 +89,7 @@
       <dir targ_name="19" />
       <dir targ_name="10" />
       <dir targ_name="11" />
+      <dir targ_name="21" />
       <dir targ_name="25" />
       <dir targ_name="27" />
     </dir>
