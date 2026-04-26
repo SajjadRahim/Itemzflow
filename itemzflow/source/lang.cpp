@@ -1,8 +1,10 @@
 #include "defines.h"
 #include "lang.h"
 #include <unordered_map>
+#include "ArabicReshaper.h"
 
 bool lang_is_initialized = false;
+bool is_arabic_lang = false;
 extern int numb_of_settings;
 std::unordered_map<std::string, std::string> stropts;
 std::vector<std::string> gm_p_text(20);
@@ -149,8 +151,12 @@ std::string getLangSTR(LANG_STR::LANG_STRINGS str)
 static int load_lang_ini(void *, const char *, const char *name,
                          const char *value, int)
 {
+    std::string final_value = value;
+    if (is_arabic_lang) {
+        final_value = ArabicReshaper::Reshape(final_value);
+    }
 
-    stropts.insert(std::pair<std::string, std::string>(name, value));
+    stropts.insert(std::pair<std::string, std::string>(name, final_value));
 
     return true;
 }
@@ -202,6 +208,7 @@ extern int32_t lang_ini_sz;
 bool load_embdded_eng()
 {
     // mem should already be allocated as this is the last opt
+    is_arabic_lang = false;
     int fd = -1;
     if (!if_exists("/user/app/ITEM00001/lang.ini"))
     {
@@ -253,6 +260,7 @@ bool load_embdded_eng()
 
 bool LoadLangs(int LangCode)
 {
+    is_arabic_lang = (LangCode == 21);
 
     std::string dst = fmt::format("{0:}/{1:d}/lang.ini", LANG_DIR, LangCode);
 #ifndef TEST_INI_LANGS
