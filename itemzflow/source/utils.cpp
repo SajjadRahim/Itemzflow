@@ -29,6 +29,7 @@ extern "C" {
 #include <sys/sysctl.h>
 #include <thread>
 #include <vector>
+#include "ArabicReshaper.h"
 
 /*================== MISC GOLBAL VAR ============*/
 static uint32_t sdkVersion = -1;
@@ -1044,18 +1045,22 @@ bool Keyboard(const char *Title, const char *initialTextBuffer,
   char titl[100];
 
   if (initialTextBuffer && strlen(initialTextBuffer) > 254)
-    return "Too Long";
+    return false;
 
   memset(&inputTextBuffer[0], 0, 255);
   memset(out_buffer, 0, 255);
 
-  if (initialTextBuffer)
-    snprintf(out_buffer, 254, "%s", initialTextBuffer);
+  if (initialTextBuffer) {
+    std::string restored_initial = ArabicReshaper::RestoreRaw(initialTextBuffer);
+    snprintf(out_buffer, 254, "%s", restored_initial.c_str());
+  }
   // converts the multibyte string src to a wide-character string starting at
   // dest.
   mbstowcs(&inputTextBuffer[0], out_buffer, strlen(out_buffer) + 1);
+  
+  std::string restored_title = Title ? ArabicReshaper::RestoreRaw(Title) : "Itemzflow";
   // use custom title
-  snprintf(&titl[0], 99, "%s", Title ? Title : "Itemzflow");
+  snprintf(&titl[0], 99, "%s", restored_title.c_str());
   // converts the multibyte string src to a wide-character string starting at
   // dest.
   mbstowcs(title, titl, strlen(titl) + 1);
@@ -1221,6 +1226,7 @@ int progstart(const char *format, ...) {
 }
 
 int Confirmation_Msg(std::string msg) {
+  msg = ArabicReshaper::RestoreRaw(msg);
 
   sceMsgDialogTerminate();
   // ds
@@ -1784,6 +1790,7 @@ bool get_ip_address(std::string &ip) {
 }
 
 void msgok(MSG_DIALOG::MSG_DIALOG_TYPE level, std::string in) {
+  in = ArabicReshaper::RestoreRaw(in);
   sceMsgDialogTerminate();
   std::string out;
 
@@ -1803,6 +1810,8 @@ void msgok(MSG_DIALOG::MSG_DIALOG_TYPE level, std::string in) {
     break;
   }
 
+  out = ArabicReshaper::RestoreRaw(out);
+  
   sceMsgDialogInitialize();
   OrbisMsgDialogParam param;
   OrbisMsgDialogParamInitialize(&param);
@@ -1843,6 +1852,7 @@ void msgok(MSG_DIALOG::MSG_DIALOG_TYPE level, std::string in) {
 
 void loadmsg(std::string in) {
 
+  in = ArabicReshaper::RestoreRaw(in);
   OrbisMsgDialogButtonsParam buttonsParam;
   OrbisMsgDialogUserMessageParam messageParam;
   OrbisMsgDialogParam dialogParam;
@@ -2728,6 +2738,9 @@ bool ForceUnmountVapp(std::string syspath) {
 int custom_Confirmation_Msg(std::string msg, std::string msg1,
                             std::string msg2) {
 
+  msg = ArabicReshaper::RestoreRaw(msg);
+  msg1 = ArabicReshaper::RestoreRaw(msg1);
+  msg2 = ArabicReshaper::RestoreRaw(msg2);
   sceMsgDialogTerminate();
   // ds
 
